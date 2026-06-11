@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة عقد قران: عبد الرحمن & تقي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@1&family=Cairo:wght@400;700&family=Reem+Kufi:wght@500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fbf9f6;
+            --text-dark: #2c3e50;
+            --accent-pink: #b56576;
+            --accent-blue: #6d8294;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* شاشة البداية لتشغيل الصوت */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #welcome-screen button {
+            background-color: var(--accent-pink);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            font-family: 'Cairo', sans-serif;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(181, 101, 118, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        #welcome-screen button:hover {
+            transform: scale(1.05);
+        }
+
+        /* كارت الدعوة الرئيسي */
+        .invitation-card {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin: 20px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s ease-out;
+            border: 1px solid rgba(109, 130, 148, 0.1);
+        }
+
+        .invitation-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* البسملة */
+        .basmala {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: var(--accent-pink);
+            margin-bottom: 25px;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        /* الأسماء */
+        .names-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .name {
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 2.2rem;
+            color: var(--accent-pink);
+            font-weight: bold;
+        }
+
+        .ring-icon {
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* الشعر أو الكلام الترحيبي */
+        .poem {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 35px;
+            padding: 0 10px;
+        }
+
+        /* تفاصيل الميعاد */
+        .details-box {
+            background-color: rgba(109, 130, 148, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .date-time {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .hotel-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        /* زر اللوكيشن التفاعلي */
+        .location-btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(109, 130, 148, 0.2);
+        }
+
+        .location-btn:hover {
+            background-color: var(--accent-pink);
+            box-shadow: 0 4px 15px rgba(181, 101, 118, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* حركة نبض الخواتم */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <p style="margin-bottom: 20px; color: var(--accent-blue); font-size: 1.2rem;">تسرنا دعوتكم لـ فرحتنا ✨</p>
+        <button onclick="startInvitation()">اضغط لفتح الدعوة ✉️</button>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="https://files.catbox.moe/ljzb43.mp3" type="audio/mpeg">
+        متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+
+    <div class="invitation-card" id="card">
+        
+        <div class="basmala">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        
+        <div class="intro">نتشرف بدعوتكم لحضور حفل عقد قران</div>
+        
+        <div class="names-container">
+            <span class="name">عبد الرحمن</span>
+            <span class="ring-icon">💍</span>
+            <span class="name">تقي</span>
+        </div>
+        
+        <div class="poem">
+            لفرحنا اليوم ندعوكم، بالطيب والورد نلاقيكم،<br>
+            وبالحب والخير نشكر تهانيكم.
+        </div>
+        
+        <div class="details-box">
+            <div class="date-time">الجمعة 17 يوليو 2026</div>
+            <div class="date-time" style="font-size: 1rem; font-weight: normal;">من الساعة 3 إلى 6 مساءً</div>
+            <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 10px 0;">
+            <div class="hotel-name">Oro Plaza Hotel</div>
+        </div>
+        
+        <a href="https://maps.google.com/?q=place_id:ChIJ_9no33AZWBQRYhac4kqIejI" target="_blank" class="location-btn">📍 موقع القاعة على الخريطة</a>
+
+    </div>
+
+    <script>
+        function startInvitation() {
+            // إخفاء شاشة الترحيب
+            const welcomeScreen = document.getElementById('welcome-screen');
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+            }, 1000);
+
+            // تشغيل الأغنية
+            const music = document.getElementById('bg-music');
+            music.play().catch(error => {
+                console.log("تم حظر التشغيل التلقائي بواسطة المتصفح، سيتطلب تفاعل إضافي.");
+            });
+
+            // إظهار كارت الدعوة بحركة أنيقة
+            const card = document.getElementById('card');
+            setTimeout(() => {
+                card.classList.add('show');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
