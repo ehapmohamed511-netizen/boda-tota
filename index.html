@@ -6,14 +6,15 @@
     <title>دعوة عقد قران: عبد الرحمن & تقي</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@1&family=Cairo:wght@400;700&family=Reem+Kufi:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@1&family=Cairo:wght@400;600;700;850&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #fbf9f6;
+            --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             --text-dark: #2c3e50;
             --accent-pink: #b56576;
-            --accent-blue: #6d8294;
+            --accent-blue: #576f84;
+            --gold-subtle: #c5a85c;
         }
 
         * {
@@ -24,13 +25,14 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
+            background: var(--bg-gradient);
             color: var(--text-dark);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* شاشة البداية لتشغيل الصوت */
@@ -40,150 +42,192 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--bg-color);
+            background: var(--bg-gradient);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.8s ease-in-out;
         }
 
         #welcome-screen button {
             background-color: var(--accent-pink);
             color: white;
             border: none;
-            padding: 15px 35px;
-            font-size: 1.2rem;
+            padding: 16px 45px;
+            font-size: 1.25rem;
             font-family: 'Cairo', sans-serif;
-            border-radius: 30px;
+            font-weight: 600;
+            border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(181, 101, 118, 0.3);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(181, 101, 118, 0.35);
+            transition: all 0.3s ease;
         }
 
         #welcome-screen button:hover {
-            transform: scale(1.05);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(181, 101, 118, 0.45);
         }
 
-        /* كارت الدعوة الرئيسي */
+        /* كارت الدعوة الرئيسي بتصميم زجاجي مودرن */
         .invitation-card {
             width: 100%;
-            max-width: 450px;
-            background: white;
-            padding: 40px 20px;
+            max-width: 440px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 45px 25px;
             text-align: center;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
             margin: 20px;
             position: relative;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 1.5s ease-out;
-            border: 1px solid rgba(109, 130, 148, 0.1);
+            transform: scale(0.95) translateY(20px);
+            transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         .invitation-card.show {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1) translateY(0);
         }
 
         /* البسملة */
         .basmala {
             font-family: 'Amiri', serif;
-            font-size: 1.8rem;
-            color: var(--accent-pink);
+            font-size: 1.9rem;
+            color: var(--gold-subtle);
             margin-bottom: 25px;
         }
 
         .intro {
             font-size: 1.1rem;
             color: var(--accent-blue);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            letter-spacing: 0.3px;
         }
 
-        /* الأسماء */
+        /* حاوية الأسماء المودرن */
         .names-container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px;
             margin: 30px 0;
+            padding: 20px 10px;
         }
 
         .name {
             font-family: 'Reem Kufi', sans-serif;
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             color: var(--accent-pink);
-            font-weight: bold;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .divider-glow {
+            display: flex;
+            align-items: center;
+            width: 70%;
+            margin: 12px 0;
+        }
+
+        .line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to left, transparent, var(--gold-subtle), transparent);
         }
 
         .ring-icon {
-            font-size: 2rem;
-            animation: pulse 2s infinite;
+            font-size: 1.6rem;
+            margin: 0 15px;
+            animation: float 3s infinite ease-in-out;
         }
 
-        /* الشعر أو الكلام الترحيبي */
+        /* الشعر */
         .poem {
-            font-size: 1rem;
+            font-family: 'Amiri', serif;
+            font-size: 1.25rem;
             line-height: 1.8;
-            color: var(--text-dark);
+            color: #4a5568;
             margin-bottom: 35px;
-            padding: 0 10px;
         }
 
-        /* تفاصيل الميعاد */
+        /* صندوق التفاصيل */
         .details-box {
-            background-color: rgba(109, 130, 148, 0.05);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
+            background: white;
+            padding: 22px;
+            border-radius: 20px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.02);
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
         .date-time {
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 700;
             color: var(--accent-blue);
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .hotel-name {
-            font-size: 1.3rem;
-            font-weight: bold;
+            font-size: 1.35rem;
+            font-weight: 850;
             color: var(--text-dark);
+            margin-top: 8px;
         }
 
-        /* زر اللوكيشن التفاعلي */
+        /* زر الخريطة */
         .location-btn {
             display: inline-block;
             background-color: var(--accent-blue);
             color: white;
             text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-weight: bold;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(109, 130, 148, 0.2);
+            box-shadow: 0 8px 20px rgba(87, 111, 132, 0.2);
         }
 
         .location-btn:hover {
             background-color: var(--accent-pink);
-            box-shadow: 0 4px 15px rgba(181, 101, 118, 0.3);
+            box-shadow: 0 10px 25px rgba(181, 101, 118, 0.3);
             transform: translateY(-2px);
         }
 
-        /* حركة نبض الخواتم */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        /* حركة طفو الخواتم اللطيفة */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* بتلات ورد ناعمة جدًا بالخلفية */
+        .petal {
+            position: fixed;
+            background: radial-gradient(circle, rgba(181, 101, 118, 0.2) 0%, rgba(181, 101, 118, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) translateX(50px); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
     <div id="welcome-screen">
-        <p style="margin-bottom: 20px; color: var(--accent-blue); font-size: 1.2rem;">تسرنا دعوتكم لـ فرحتنا ✨</p>
+        <p style="margin-bottom: 25px; color: var(--accent-blue); font-size: 1.25rem; font-weight: 600; letter-spacing: 0.5px;">تسرنا دعوتكم لـ فرحتنا ✨</p>
         <button onclick="startInvitation()">اضغط لفتح الدعوة ✉️</button>
     </div>
 
@@ -200,7 +244,11 @@
         
         <div class="names-container">
             <span class="name">عبد الرحمن</span>
-            <span class="ring-icon">💍</span>
+            <div class="divider-glow">
+                <div class="line"></div>
+                <span class="ring-icon">💍</span>
+                <div class="line"></div>
+            </div>
             <span class="name">تقي</span>
         </div>
         
@@ -211,8 +259,8 @@
         
         <div class="details-box">
             <div class="date-time">الجمعة 17 يوليو 2026</div>
-            <div class="date-time" style="font-size: 1rem; font-weight: normal;">من الساعة 3 إلى 6 مساءً</div>
-            <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.05); margin: 10px 0;">
+            <div class="date-time" style="font-size: 1rem; font-weight: normal; opacity: 0.8;">من الساعة 3 إلى 6 مساءً</div>
+            <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.04); margin: 15px 0;">
             <div class="hotel-name">Oro Plaza Hotel</div>
         </div>
         
@@ -221,25 +269,37 @@
     </div>
 
     <script>
+        function createSoftPetals() {
+            for (let i = 0; i < 10; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.style.left = Math.random() * 100 + 'vw';
+                const size = Math.random() * 20 + 15 + 'px';
+                petal.style.width = size;
+                petal.style.height = size;
+                petal.style.animationDelay = Math.random() * 4 + 's';
+                petal.style.animationDuration = Math.random() * 5 + 7 + 's';
+                document.body.appendChild(petal);
+            }
+        }
+
         function startInvitation() {
-            // إخفاء شاشة الترحيب
             const welcomeScreen = document.getElementById('welcome-screen');
             welcomeScreen.style.opacity = '0';
             setTimeout(() => {
                 welcomeScreen.style.display = 'none';
-            }, 1000);
+            }, 800);
 
-            // تشغيل الأغنية
             const music = document.getElementById('bg-music');
             music.play().catch(error => {
-                console.log("تم حظر التشغيل التلقائي بواسطة المتصفح، سيتطلب تفاعل إضافي.");
+                console.log("تم حظر التشغيل التلقائي.");
             });
 
-            // إظهار كارت الدعوة بحركة أنيقة
             const card = document.getElementById('card');
             setTimeout(() => {
                 card.classList.add('show');
-            }, 300);
+                createSoftPetals();
+            }, 200);
         }
     </script>
 </body>
